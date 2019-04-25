@@ -11,11 +11,41 @@
   export default {
     name: "vue-popup",
     props: {
-      value: Boolean
+      value: {
+        type: Boolean,
+        default: false
+      }
+    },
+    watch: {
+      value (val) {
+        console.log('change', val);
+        if (val) {
+          this.stop();
+        } else {
+          this.move();
+        }
+      }
+    },
+    mounted() {
+      if (this.value) {
+        this.stop();
+      }
     },
     methods: {
       close () {
         this.$emit('input', false);
+      },
+      stop(){
+        console.log('禁止页面滑动');
+        let mo=function(e){e.preventDefault();};
+        document.body.style.overflow='hidden';
+        document.addEventListener("touchmove",mo,false);//禁止页面滑动
+      },
+      move(){
+        console.log('页面可以滑动');
+        let mo=function(e){e.preventDefault();};
+        document.body.style.overflow='';//出现滚动条
+        document.removeEventListener("touchmove",mo,true);//页面可以滑动
       }
     }
 

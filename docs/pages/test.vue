@@ -2,7 +2,12 @@
     <div id="project-features">
         <h1 class="title">vue-list</h1>
         <div class="features">
-           <popup v-model="show"></popup>
+            <button @click="showPopup">点击出现弹层</button>
+           <popup v-model="show">
+               <div style="height: 1080px">
+                   这是浮层上的元素
+               </div>
+           </popup>
         </div>
     </div>
 </template>
@@ -13,7 +18,7 @@
         name: 'ProjectFeatures',
         data() {
             return {
-                show: true
+                show: false
             };
         },
         components: {
@@ -25,6 +30,9 @@
             handleClick (value) {
                 console.log('selected', value);
             },
+          showPopup () {
+              this.show = true;
+          },
             getLists () {
                 axois.get('http://172.16.0.45:7300/mock/5c88c2241d2cb328eddca711/components/api/list').then(r => {
                     this.list.push(...r.data.data);
@@ -141,6 +149,8 @@
         display: flex;
         margin-bottom: 40px;
         flex-direction: column;
+        width: 100%;
+        height: 1080px;
     }
 
     .browser-support {
