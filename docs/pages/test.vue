@@ -4,8 +4,9 @@
         <div class="features">
             <button @click="showPopup">点击出现弹层</button>
            <popup v-model="show">
-               <div style="height: 1080px">
-                   这是浮层上的元素
+               <div class="iframe-container">
+                   iframe无法滑动吗
+                   <iframe src="http://172.16.128.226:8080/?mode=result#/1"></iframe>
                </div>
            </popup>
         </div>
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-    import popup from '../../src/index';
+    import popup from '../../src/index.vue';
     export default {
         name: 'ProjectFeatures',
         data() {
@@ -72,6 +73,19 @@
         width: 100%;
         height: 300px;
         overflow-y: scroll;
+    }
+    .iframe-container{
+        width: 100%;
+        height: 2000px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+
+    }
+    iframe{
+        width: 100%;
+        height: 2000px;
+        min-height: calc(100% + 1px);
+        border: none;
     }
     .outer-container{
         height: 200px;

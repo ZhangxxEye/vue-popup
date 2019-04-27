@@ -38,13 +38,19 @@
       stop(){
         console.log('禁止页面滑动');
         let mo=function(e){e.preventDefault();};
-        document.body.style.overflow='hidden';
+        document.documentElement.style.height = '100%'
+        document.documentElement.style.overflow = 'hidden'
+        document.body.style.height = '100%'
+        document.body.style.overflow = 'hidden'
         document.addEventListener("touchmove",mo,false);//禁止页面滑动
       },
       move(){
         console.log('页面可以滑动');
         let mo=function(e){e.preventDefault();};
-        document.body.style.overflow='';//出现滚动条
+        document.documentElement.style.height = 'auto'
+        document.documentElement.style.overflow = ''
+        document.body.style.height = 'auto'
+        document.body.style.overflow = ''
         document.removeEventListener("touchmove",mo,true);//页面可以滑动
       }
     }
@@ -57,6 +63,7 @@
         position: fixed;
         overflow-y: auto;
         background-color: #fff;
+        opacity: 0.5;
         left: 0;
         bottom: 0;
         right: 0;
