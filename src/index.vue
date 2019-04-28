@@ -63,7 +63,7 @@
         position: fixed;
         overflow-y: auto;
         background-color: #fff;
-        opacity: 0.5;
+        /*opacity: 0.5;*/
         left: 0;
         bottom: 0;
         right: 0;
