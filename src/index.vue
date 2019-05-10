@@ -1,8 +1,8 @@
 <template>
     <div class="popup-container" v-show="value">
-        <div class="close-btn">
-            <span class="btn" @click="close"></span>
-        </div>
+        <!--<div class="close-btn">-->
+            <!--<span class="btn" @click="close"></span>-->
+        <!--</div>-->
         <slot></slot>
     </div>
 </template>
@@ -18,7 +18,7 @@
     },
     watch: {
       value (val) {
-        console.log('change', val);
+      console.log('change', val);
         if (val) {
           this.stop();
         } else {
@@ -42,16 +42,21 @@
         document.documentElement.style.overflow = 'hidden'
         document.body.style.height = '100%'
         document.body.style.overflow = 'hidden'
-        document.addEventListener("touchmove",mo,false);//禁止页面滑动
+        // document.body.addEventListener("touchmove",mo,false);//禁止页面滑动
+        // document.body.style.position = 'fixed';
+        // document.body.style.width = '100%';
+
       },
       move(){
         console.log('页面可以滑动');
+        // document.body.style.position = '';
+        // document.body.style.width = '';
         let mo=function(e){e.preventDefault();};
         document.documentElement.style.height = 'auto'
         document.documentElement.style.overflow = ''
         document.body.style.height = 'auto'
         document.body.style.overflow = ''
-        document.removeEventListener("touchmove",mo,true);//页面可以滑动
+        // document.body.removeEventListener("touchmove",mo,true);//页面可以滑动
       }
     }
 
@@ -62,8 +67,9 @@
     .popup-container{
         position: fixed;
         overflow-y: auto;
+        -webkit-overflow-scrolling: touch;/* 解决在IOS上滚动惯性失效的问题 */
         background-color: #fff;
-        /*opacity: 0.5;*/
+        opacity: 0.5;
         left: 0;
         bottom: 0;
         right: 0;

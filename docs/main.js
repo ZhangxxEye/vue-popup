@@ -2,6 +2,13 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
+import Vant from 'vant';
+import 'vant/lib/index.css';
+
+Vue.use(Vant);
+import { Popup } from 'vant';
+
+Vue.use(Popup);
 // import { format, mergeDocs } from './docs-formatter';
 
 // require the docs file which contains all the information

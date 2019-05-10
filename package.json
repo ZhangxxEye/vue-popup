@@ -35,6 +35,7 @@
     "vue": "2.x"
   },
   "dependencies": {
+    "vant": "^1.6.17",
     "vue": "^2.5.16"
   },
   "devDependencies": {

@@ -1,20 +1,37 @@
 <template lang="html">
     <div id="project-features">
         <h1 class="title">vue-list</h1>
-        <div class="features">
+        <div class="features demo">
             <button @click="showPopup">点击出现弹层</button>
-           <popup v-model="show">
-               <div class="iframe-container">
-                   iframe无法滑动吗
-                   <iframe src="http://172.16.128.226:8080/?mode=result#/1"></iframe>
+         <!--  <popup v-model="show">
+               <div class="popBox">
+                   this is a demo<br>
+                   this is a demo<br>
+                   this is a demo<br>
+                   this is a demo<br>
+                   this is a demo<br>
+                   this is a demo<br>
+                   this is a demo<br>
                </div>
-           </popup>
+           </popup>-->
+            <van-popup v-model="show" position="right" :overlay="false">
+                <div class="popBox">
+                    this is a demo<br>
+                    this is a demo<br>
+                    this is a demo<br>
+                    this is a demo<br>
+                    this is a demo<br>
+                    this is a demo<br>
+                    this is a demo<br>
+                </div>
+            </van-popup>
         </div>
     </div>
 </template>
 
 <script>
     import popup from '../../src/index.vue';
+    import BScroll from 'better-scroll'
     export default {
         name: 'ProjectFeatures',
         data() {
@@ -26,6 +43,8 @@
           popup,
         },
         mounted () {
+        //   let wrapper = document.querySelector('.scroller')
+        //   let scroll = new BScroll(wrapper)
         },
         methods: {
             handleClick (value) {
@@ -69,6 +88,17 @@
 
 <style lang="scss">
     @import '~colors';
+    .demo{
+        .van-popup--right{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .popBox{
+        height: 800px;
+        width: 95%;
+        border: 1px solid red;
+    }
     .test-box{
         width: 100%;
         height: 300px;
@@ -80,6 +110,9 @@
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
 
+    }
+    .scroller{
+        overflow: auto;
     }
     iframe{
         width: 100%;
