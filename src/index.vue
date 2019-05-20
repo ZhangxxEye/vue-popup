@@ -1,28 +1,68 @@
 <template>
     <div class="popup-container" v-show="value">
-        <!--<div class="close-btn">-->
-            <!--<span class="btn" @click="close"></span>-->
-        <!--</div>-->
-        <slot></slot>
+        <overlay v-model="showOverlay"></overlay>
+        <transition :name="transitionName">
+            <div class="popup" :class="positionClass" v-if="value">
+                <slot></slot>
+            </div>
+        </transition>
     </div>
 </template>
 
 <script>
+  import overlay from '@nat/vue-overlay';
   export default {
     name: "vue-popup",
     props: {
       value: {
         type: Boolean,
         default: false
+      },
+      isShowOverlay: {
+        type: Boolean,
+        default: true
+      },
+      position: String
+
+    },
+    data () {
+      return {
+        showOverlay: true
+      }
+    },
+    components: {
+      overlay
+    },
+    computed:{
+      transitionName () {
+        return this.position ? `popup-${this.position}` : 'fade'
+      },
+      positionClass () {
+        if (this.position) {
+          return `popup-${this.position}`
+        } else {
+          return ''
+        }
+
       }
     },
     watch: {
       value (val) {
-      console.log('change', val);
         if (val) {
           this.stop();
+          if (this.isShowOverlay) {
+            this.showOverlay = true;
+          }
         } else {
           this.move();
+          if (this.isShowOverlay) {
+            this.showOverlay = false;
+          }
+        }
+      },
+      showOverlay (val) {
+        if (val === false) {
+          this.$emit('input', false)
         }
       }
     },
@@ -36,7 +76,6 @@
         this.$emit('input', false);
       },
       stop(){
-        console.log('禁止页面滑动');
         let mo=function(e){e.preventDefault();};
         document.documentElement.style.height = '100%'
         document.documentElement.style.overflow = 'hidden'
@@ -65,28 +104,29 @@
 
 <style scoped lang="less">
     .popup-container{
-        position: fixed;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;/* 解决在IOS上滚动惯性失效的问题 */
-        background-color: #fff;
-        opacity: 0.5;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        top: 0;
-        z-index: 1000;
-        .close-btn{
-            text-align: right;
-            >.btn{
-                width: 28px;
-                height: 28px;
-               background: url("//cdn.51talk.com/apollo/images/34d98b1d128378791c183612af75b979.png") no-repeat;
-                background-size: 100% 100%;
-                display: inline-block;
-                margin-top: 14px;
-                margin-right: 12px;
-            }
+        .popup{
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            max-height: 100%;
+            overflow-y: auto;
+            background-color: #fff;
+            -webkit-overflow-scrolling: touch;
+            transform: translate3d(-50%, -50%, 0);
+            z-index: 1001;
         }
+        .popup-bottom{
+            width: 100%;
+            top: auto;
+            bottom: 0;
+            right: auto;
+            left: 50%;
+            transform: translate3d(-50%, 0, 0);
+        }
+    }
+    .popup-bottom-enter,
+    .popup-bottom-leave-active {
+        transform: translate3d(-50%, 100%, 0);
     }
 
 </style>

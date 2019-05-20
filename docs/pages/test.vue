@@ -3,8 +3,9 @@
         <h1 class="title">vue-list</h1>
         <div class="features demo">
             <button @click="showPopup">点击出现弹层</button>
-         <!--  <popup v-model="show">
+           <popup v-model="show" position="bottom">
                <div class="popBox">
+                   <button @click="close">关闭</button>
                    this is a demo<br>
                    this is a demo<br>
                    this is a demo<br>
@@ -13,9 +14,9 @@
                    this is a demo<br>
                    this is a demo<br>
                </div>
-           </popup>-->
-            <van-popup v-model="show" position="right" :overlay="false">
-                <div class="popBox">
+           </popup>
+            <!--<van-popup v-model="show" :overlay="true">
+                <div>
                     this is a demo<br>
                     this is a demo<br>
                     this is a demo<br>
@@ -24,7 +25,7 @@
                     this is a demo<br>
                     this is a demo<br>
                 </div>
-            </van-popup>
+            </van-popup>-->
         </div>
     </div>
 </template>
@@ -50,6 +51,9 @@
             handleClick (value) {
                 console.log('selected', value);
             },
+          close () {
+              this.show = false;
+          },
           showPopup () {
               this.show = true;
           },
@@ -93,9 +97,13 @@
             width: 100%;
             height: 100%;
         }
+        .popup{
+            height: 300px;
+            width: 80%;
+        }
     }
     .popBox{
-        height: 800px;
+        height: 600px;
         width: 95%;
         border: 1px solid red;
     }

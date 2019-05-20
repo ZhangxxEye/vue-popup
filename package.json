@@ -35,6 +35,7 @@
     "vue": "2.x"
   },
   "dependencies": {
+    "@nat/vue-overlay": "^1.0.1",
     "vant": "^1.6.17",
     "vue": "^2.5.16"
   },
