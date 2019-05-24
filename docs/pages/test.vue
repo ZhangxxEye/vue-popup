@@ -15,17 +15,17 @@
                    this is a demo<br>
                </div>
            </popup>
-            <!--<van-popup v-model="show" :overlay="true">
-                <div>
-                    this is a demo<br>
-                    this is a demo<br>
-                    this is a demo<br>
-                    this is a demo<br>
-                    this is a demo<br>
-                    this is a demo<br>
-                    this is a demo<br>
-                </div>
-            </van-popup>-->
+            <!--<van-popup v-model="show" :overlay="true">-->
+                <!--<div style="height: 300px">-->
+                    <!--this is a demo<br>-->
+                    <!--this is a demo<br>-->
+                    <!--this is a demo<br>-->
+                    <!--this is a demo<br>-->
+                    <!--this is a demo<br>-->
+                    <!--this is a demo<br>-->
+                    <!--this is a demo<br>-->
+                <!--</div>-->
+            <!--</van-popup>-->
         </div>
     </div>
 </template>
@@ -100,6 +100,10 @@
         .popup{
             height: 300px;
             width: 80%;
+        }
+        .van-popup{
+            width: 80%;
+            height: 400px;
         }
     }
     .popBox{

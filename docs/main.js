@@ -4,6 +4,8 @@ import App from './App.vue';
 import router from './router';
 import Vant from 'vant';
 import 'vant/lib/index.css';
+import VConsole from 'vconsole/dist/vconsole.min.js' //import vconsole
+let vConsole = new VConsole() // 初始化
 
 Vue.use(Vant);
 import { Popup } from 'vant';

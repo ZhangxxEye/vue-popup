@@ -1,8 +1,8 @@
 <template>
-    <div class="popup-container" v-show="value">
+    <div class="popup-container">
         <overlay v-model="showOverlay"></overlay>
         <transition :name="transitionName">
-            <div class="popup" :class="positionClass" v-if="value">
+            <div class="popup" :class="positionClass" v-show="value">
                 <slot></slot>
             </div>
         </transition>
@@ -27,7 +27,9 @@
     },
     data () {
       return {
-        showOverlay: true
+        showOverlay: true,
+        startY: 0,
+        deltaY: 0
       }
     },
     components: {
@@ -49,12 +51,12 @@
     watch: {
       value (val) {
         if (val) {
-          this.stop();
+          this.open();
           if (this.isShowOverlay) {
             this.showOverlay = true;
           }
         } else {
-          this.move();
+          this.close();
           if (this.isShowOverlay) {
             this.showOverlay = false;
           }
@@ -68,34 +70,29 @@
     },
     mounted() {
       if (this.value) {
-        this.stop();
+        this.open();
+      } else {
+        this.showOverlay = false;
       }
     },
     methods: {
-      close () {
-        this.$emit('input', false);
+      /**
+       * 弹框打开，禁止背景页滑动
+       */
+      open(){
+        document.documentElement.style.height = '100%';
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.height = '100%';
+        document.body.style.overflow = 'hidden';
       },
-      stop(){
-        let mo=function(e){e.preventDefault();};
-        document.documentElement.style.height = '100%'
-        document.documentElement.style.overflow = 'hidden'
-        document.body.style.height = '100%'
-        document.body.style.overflow = 'hidden'
-        // document.body.addEventListener("touchmove",mo,false);//禁止页面滑动
-        // document.body.style.position = 'fixed';
-        // document.body.style.width = '100%';
-
-      },
-      move(){
-        console.log('页面可以滑动');
-        // document.body.style.position = '';
-        // document.body.style.width = '';
-        let mo=function(e){e.preventDefault();};
+      /**
+       * 弹框关闭，背景页可以滑动
+       */
+      close(){
         document.documentElement.style.height = 'auto'
         document.documentElement.style.overflow = ''
         document.body.style.height = 'auto'
         document.body.style.overflow = ''
-        // document.body.removeEventListener("touchmove",mo,true);//页面可以滑动
       }
     }
 
@@ -124,9 +121,11 @@
             transform: translate3d(-50%, 0, 0);
         }
     }
-    .popup-bottom-enter,
-    .popup-bottom-leave-active {
-        transform: translate3d(-50%, 100%, 0);
+    .popup-bottom-enter-active, .popup-bottom-leave-active {
+        transition: transform 0.3s ease-in;
+    }
+    .popup-bottom-enter, .popup-bottom-leave-to /* .fade-leave-active below version 2.1.8 */ {
+        transform: translate3d(-50%, 100%, 0)!important;
     }
 
 </style>
