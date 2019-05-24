@@ -109,7 +109,7 @@
     .popBox{
         height: 600px;
         width: 95%;
-        border: 1px solid red;
+        /*border: 1px solid red;*/
     }
     .test-box{
         width: 100%;
